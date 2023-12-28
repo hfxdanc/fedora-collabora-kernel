@@ -5,7 +5,8 @@ TMPDIR=${TMPDIR:-/tmp}
 ODIR=$(mktemp -d)
 trap "rmdir $ODIR || echo \"Warning: files uncopied from SRPM\"" EXIT INT
 
-[ -d KERNEL ] && rm -f KERNEL/* || mkdir KERNEL
+[ -d SOURCES ] && rm -f SOURCES/* || mkdir SOURCES
+[ -d SPECS ] && rm -f SPECS/* || mkdir SPECS
 
 SRPM=$(wget -O - -q $REPO | awk '
     /href="kernel-[[:digit:]]*\.[[:digit:]]*\..*\.src\.rpm"/ {
@@ -33,11 +34,12 @@ TARFILE_RELEASE=$(echo $TAG | sed 's/^v//')
 
 rm $ODIR/$SOURCE0 || exit 1
 
-mv $ODIR/* KERNEL/
+mv $ODIR/kernel.spec SPECS/ || exit 1
+mv $ODIR/* SOURCES/
 
 for p in *.patch; do cat $p | patch -p1; done
 
-sed -i "s/^# \(define buildid \).*\$/%\1${BUILDID}/" KERNEL/kernel.spec
-sed -i "s/^\(%define tarfile_release \).*\$/\1 ${TARFILE_RELEASE}/" KERNEL/kernel.spec
-sed -i "s|^\(Source0:\).*\$|\1 https://github.com/torvalds/linux/archive/refs/tags/${TAG}.tar.gz|" KERNEL/kernel.spec
+sed -i "s/^# \(define buildid \).*\$/%\1${BUILDID}/" SPECS/kernel.spec
+sed -i "s/^\(%define tarfile_release \).*\$/\1 ${TARFILE_RELEASE}/" SPECS/kernel.spec
+sed -i "s|^\(Source0:\).*\$|\1 https://github.com/torvalds/linux/archive/refs/tags/${TAG}.tar.gz|" SPECS/kernel.spec
 

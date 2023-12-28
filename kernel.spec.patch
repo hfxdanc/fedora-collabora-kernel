@@ -1,5 +1,5 @@
---- fedora-collabora-kernel/KERNEL/kernel.spec.orig	2023-12-21 11:51:03.112552396 -0400
-+++ fedora-collabora-kernel/KERNEL/kernel.spec	2023-12-21 11:56:23.006269055 -0400
+--- fedora-collabora-kernel/SPECS/kernel.spec.orig	2023-12-21 11:51:03.112552396 -0400
++++ fedora-collabora-kernel/SPECS/kernel.spec	2023-12-21 11:56:23.006269055 -0400
 @@ -796,7 +796,10 @@
  # exact git commit you can run
  #

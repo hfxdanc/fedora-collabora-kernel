@@ -1,5 +1,5 @@
 --- /dev/null	2023-12-19 08:13:19.146998953 -0400
-+++ rpmbuild/KERNEL/0001-rk3588-commits-from-Collabora-tree.patch	2023-12-19 11:03:57.831886981 -0400
++++ rpmbuild/SOURCES/0001-rk3588-commits-from-Collabora-tree.patch	2023-12-19 11:03:57.831886981 -0400
 @@ -0,0 +1,18017 @@
 +From 0e9153709ef625015f117e55c0fd955f626caf72 Mon Sep 17 00:00:00 2001
 +From: hfxdanc <dcampbel.ca@gmail.com>

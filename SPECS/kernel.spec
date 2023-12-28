@@ -159,17 +159,17 @@ Summary: The Linux kernel
 #  to build the base kernel using the debug configuration. (Specifying
 #  the --with-release option overrides this setting.)
 %define debugbuildsenabled 1
-# define buildid .local
+%define buildid .copr
 %define specrpmversion 6.7.0
 %define specversion 6.7.0
 %define patchversion 6.7
-%define pkgrelease 0.rc7.54
+%define pkgrelease 0.rc7.20231226gitfbafc3e621c3.56
 %define kversion 6
-%define tarfile_release 6.7-rc7
+%define tarfile_release  6.7-rc7
 # This is needed to do merge window version magic
 %define patchlevel 7
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.54%{?buildid}%{?dist}
+%define specrelease 0.rc7.20231226gitfbafc3e621c3.56%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.7.0
 
@@ -796,7 +796,10 @@ BuildRequires: tpm2-tools
 # exact git commit you can run
 #
 # xzcat -qq ${TARBALL} | git get-tar-commit-id
-Source0: linux-%{tarfile_release}.tar.xz
+#Source0: linux-%{tarfile_release}.tar.xz
+
+# pull from https://github.com/torvalds/linux/archive/refs/tags/
+Source0: https://github.com/torvalds/linux/archive/refs/tags/v6.7-rc7.tar.gz
 
 Source1: Makefile.rhelver
 Source2: kernel.changelog.xz
@@ -976,6 +979,7 @@ Source4002: gating.yaml
 %if !%{nopatches}
 
 Patch1: patch-%{patchversion}-redhat.patch
+Patch100: 0001-rk3588-commits-from-Collabora-tree.patch
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1679,6 +1683,12 @@ Prebuilt 64k unified kernel image for virtual machines.
 %endif
 
 %prep
+%if 0%{?copr_projectname:1}
+# This happens only in Copr
+pwd
+printenv
+%endif
+
 # do a few sanity-checks for --with *only builds
 %if %{with_baseonly}
 %if !%{with_up}
@@ -1741,6 +1751,7 @@ cp -a %{SOURCE1} .
 
 %if !%{nopatches}
 
+ApplyOptionalPatch 0001-rk3588-commits-from-Collabora-tree.patch
 ApplyOptionalPatch patch-%{patchversion}-redhat.patch
 %endif
 
@@ -3756,6 +3767,12 @@ fi\
 #
 #
 %changelog
+* Tue Dec 26 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc7.fbafc3e621c3.56]
+- Linux v6.7.0-0.rc7.fbafc3e621c3
+
+* Mon Dec 25 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc7.55]
+- Enable sound for a line of Huawei laptops (TomZanna)
+
 * Sun Dec 24 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.7.0-0.rc7.54]
 - Linux v6.7.0-0.rc7
 
