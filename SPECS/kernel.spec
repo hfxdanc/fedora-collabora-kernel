@@ -165,7 +165,7 @@ Summary: The Linux kernel
 %define patchversion 6.7
 %define pkgrelease 0.rc7.20231228gitf5837722ffec.57
 %define kversion 6
-%define tarfile_release  linux-rk3588
+%define tarfile_release  rk3588
 # This is needed to do merge window version magic
 %define patchlevel 7
 # This allows pkg_release to have configurable %%{?dist} tag
