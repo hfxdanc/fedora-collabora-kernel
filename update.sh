@@ -1,9 +1,9 @@
 BUILDID=".copr"
 RAWHIDE=0
 REPO="https://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/source/tree/Packages/k/"
-TARFILE_RELEASE="linux-rk3588"
+TARFILE_RELEASE="rk3588"
 TMPDIR=${TMPDIR:-/tmp}
-URL="https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/archive/rk3588/${TARFILE_RELEASE}.tar.gz"
+URL="https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/archive/rk3588/linux-${TARFILE_RELEASE}.tar.gz"
 
 ODIR=$(mktemp -d)
 trap "rmdir $ODIR || echo \"Warning: files uncopied from SRPM\"" EXIT INT
